@@ -1,17 +1,17 @@
 import express from "express";
+import { isWithinTokenLimit } from "gpt-tokenizer";
 
 const app = express();
 
-app.get("/api", (req, res) => {
-  const path = `/api/item/testpath`;
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
-});
+app.get("/api/withinTokenLimit", (req, res) => {
+  const { text, limit } = req.query;
+  const _text = decodeURI(text);
+  const tokenLimit = parseInt(limit);
 
-app.get("/api/item/:slug", (req, res) => {
-  const { slug } = req.params;
-  res.end(`Item: ${slug}`);
+  const withinTokenLimit = isWithinTokenLimit(_text, tokenLimit);
+
+  const response = encodeURI(withinTokenLimit + "");
+  res.end(response);
 });
 
 // const port = 3000;
