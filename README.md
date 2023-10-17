@@ -2,9 +2,9 @@
 
 ## endpoints
 
-**/api/withinTokenLimit**
+**POST /api/withinTokenLimit**
 
-params: `text`, `limit`
+body: {text, limit}
 
 returns: token count if text fits in token limit, false if it does not
 

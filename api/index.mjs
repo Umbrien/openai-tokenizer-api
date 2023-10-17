@@ -2,9 +2,10 @@ import express from "express";
 import { isWithinTokenLimit } from "gpt-tokenizer";
 
 const app = express();
+app.use(express.json());
 
-app.get("/api/withinTokenLimit", (req, res) => {
-  const { text, limit } = req.query;
+app.post("/api/withinTokenLimit", (req, res) => {
+  const { text, limit } = req.body;
   const _text = decodeURI(text);
   const tokenLimit = parseInt(limit);
 
@@ -16,7 +17,7 @@ app.get("/api/withinTokenLimit", (req, res) => {
 
 // const port = 3000;
 // app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`);
+//   console.log(`App listening on port ${port}`);
 // });
 
 export default app;
